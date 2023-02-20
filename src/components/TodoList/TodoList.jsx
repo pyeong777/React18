@@ -18,6 +18,14 @@ export default function TodoList({ filter }) {
     setTodos(todos.filter((item) => item.id !== deleted.id));
   };
 
+  const handleEdit = (edited, newText) => {
+    setTodos(
+      todos.map((item) =>
+        item.id === edited.id ? { ...item, text: newText } : item
+      )
+    );
+  };
+
   useEffect(() => {
     localStorage.setItem("todos", JSON.stringify(todos));
   }, [todos]);
@@ -33,6 +41,7 @@ export default function TodoList({ filter }) {
             todo={item}
             onUpdate={handleUpdate}
             onDelete={handleDelete}
+            onEdit={handleEdit}
           />
         ))}
       </ul>
